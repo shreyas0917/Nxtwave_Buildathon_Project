@@ -1,0 +1,49 @@
+# FastAPI Backend Dependencies
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+pydantic>=2.10.0,<3.0.0
+pydantic-core>=2.41.0,<3.0.0
+pydantic-settings>=2.6.0
+
+# ML & Computer Vision
+tensorflow>=2.20.0
+tf-keras>=2.20.0  # Required for transformers compatibility with Keras 3
+torch>=2.5.0
+torchvision>=0.20.0
+Pillow>=11.0.0
+numpy>=1.26.0,<3.0.0
+opencv-python>=4.10.0
+
+# Grad-CAM & Explainability
+tf-keras-vis>=0.8.1
+scikit-image>=0.24.0
+matplotlib>=3.9.0
+
+# NLP & RAG
+sentence-transformers>=3.0.0
+transformers>=4.45.0
+langchain>=0.3.0
+faiss-cpu>=1.9.0
+
+# Database & Storage
+sqlalchemy>=2.0.36
+# sqlite3 is built-in, no need to install
+# redis>=5.2.0  # Optional for caching
+
+# Utilities
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=1.0.1
+aiofiles>=24.1.0
+
+# Monitoring & Logging
+prometheus-client>=0.21.0
+structlog>=24.4.0
+
+# PDF Generation & Reports
+reportlab>=4.2.0
+
+# QR Code Generation
+qrcode>=8.0
+Pillow>=11.0.0  # Already included above
