@@ -52,16 +52,30 @@ function RiskAssessment() {
       const base64Data = image.split(',')[1]
       const region = district || state || ''
       const result = await riskAPI.assessRisk(base64Data, breed, region)
-      setPrediction(result)
       
-      // Trigger notification for high risk
-      if (result.risk_level === 'High') {
-        window.dispatchEvent(new CustomEvent('high-risk-detected', {
-          detail: { risk_level: result.risk_level, confidence: result.confidence }
-        }))
+      // Check if request was queued
+      if (result.queued) {
+        setPrediction({
+          ...result,
+          explanation: '✅ Request queued successfully. It will be processed automatically when your connection is restored. You can continue using the app.'
+        })
+        setError(null) // Don't show as error
+      } else {
+        setPrediction(result)
+        setError(null)
+        
+        // Trigger notification for high risk
+        if (result.risk_level === 'High') {
+          window.dispatchEvent(new CustomEvent('high-risk-detected', {
+            detail: { risk_level: result.risk_level, confidence: result.confidence }
+          }))
+        }
       }
     } catch (err) {
-      setError(err.message || 'Failed to assess risk')
+      // Only show error if it's not a queued request
+      if (!err.message?.includes('queued')) {
+        setError(err.message || 'Failed to assess risk')
+      }
     } finally {
       setLoading(false)
     }
