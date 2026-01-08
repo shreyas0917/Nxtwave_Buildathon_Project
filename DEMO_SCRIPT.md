@@ -1,6 +1,6 @@
 # 🎤 Hackathon Demo Script
 
-## 5-Minute Presentation Flow
+
 
 ### Introduction (30 seconds)
 > "Today I'm presenting a **Nationwide Livestock AI Platform** for Indian dairy cooperatives. This is an **offline-first, ethical AI system** that helps farmers identify cattle breeds, assess health risks, and get care guidance - all while working in low-connectivity rural areas."
