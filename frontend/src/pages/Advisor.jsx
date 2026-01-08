@@ -20,9 +20,23 @@ function Advisor() {
 
     try {
       const result = await advisorAPI.askAdvisor(question)
-      setAnswer(result)
+      
+      // Check if request was queued
+      if (result.queued) {
+        setAnswer({
+          ...result,
+          answer: '✅ Your question has been queued and will be answered automatically when your connection is restored. You can continue using the app.'
+        })
+        setError(null) // Don't show as error
+      } else {
+        setAnswer(result)
+        setError(null)
+      }
     } catch (err) {
-      setError(err.message || 'Failed to get answer')
+      // Only show error if it's not a queued request
+      if (!err.message?.includes('queued')) {
+        setError(err.message || 'Failed to get answer')
+      }
     } finally {
       setLoading(false)
     }

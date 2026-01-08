@@ -51,9 +51,23 @@ function BreedIdentification() {
       const base64Data = image.split(',')[1]
       const region = district || state || ''
       const result = await breedAPI.predictBreed(base64Data, region)
-      setPrediction(result)
+      
+      // Check if request was queued
+      if (result.queued) {
+        setPrediction({
+          ...result,
+          explanation: '✅ Request queued successfully. It will be processed automatically when your connection is restored. You can continue using the app.'
+        })
+        setError(null) // Don't show as error
+      } else {
+        setPrediction(result)
+        setError(null)
+      }
     } catch (err) {
-      setError(err.message || 'Failed to predict breed')
+      // Only show error if it's not a queued request
+      if (!err.message?.includes('queued')) {
+        setError(err.message || 'Failed to predict breed')
+      }
     } finally {
       setLoading(false)
     }

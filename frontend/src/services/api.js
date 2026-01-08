@@ -48,21 +48,46 @@ export const breedAPI = {
       })
       return response.data
     } catch (error) {
-      if (!navigator.onLine || error.code === 'ERR_NETWORK') {
-        // Queue for later
-        await queueRequest({
-          method: 'POST',
-          url: '/predict-breed',
-          data: { image_base64: imageBase64, region },
-          type: 'breed_prediction'
-        })
-        throw new Error('You are offline. Request queued and will be sent when connection is restored.')
+      // Better offline detection - check multiple conditions
+      const isNetworkError = !navigator.onLine || 
+                            error.code === 'ERR_NETWORK' || 
+                            error.code === 'ERR_INTERNET_DISCONNECTED' ||
+                            error.message?.includes('Network Error') ||
+                            (error.response === undefined && error.request !== undefined)
+      
+      if (isNetworkError) {
+        try {
+          // Queue for later
+          await queueRequest({
+            method: 'POST',
+            url: '/predict-breed',
+            data: { image_base64: imageBase64, region },
+            type: 'breed_prediction'
+          })
+          // Return a queued response instead of throwing error
+          return {
+            breed: 'Unknown/Mixed',
+            confidence: 0.5,
+            explanation: 'Request queued. Will be processed when connection is restored.',
+            trust_score: 0.5,
+            regional_validity: 0.5,
+            queued: true
+          }
+        } catch (queueError) {
+          console.error('Failed to queue request:', queueError)
+          // Only throw if queueing also failed
+          throw new Error('Unable to process request. Please check your connection and try again.')
+        }
       }
+      
       if (error.code === 'ECONNABORTED') {
         throw new Error('Request timed out. The model might be taking too long to process the image. Please try again or with a smaller image.')
       }
       if (error.response?.status === 400) {
         throw new Error(error.response.data?.detail || 'Invalid request. Please check your image and try again.')
+      }
+      if (error.response?.status === 500) {
+        throw new Error('Server error. Please try again later.')
       }
       throw error
     }
@@ -89,14 +114,41 @@ export const riskAPI = {
       })
       return response.data
     } catch (error) {
-      if (!navigator.onLine || error.code === 'ERR_NETWORK') {
-        await queueRequest({
-          method: 'POST',
-          url: '/predict-risk',
-          data: { image_base64: imageBase64, breed, region },
-          type: 'risk_assessment'
-        })
-        throw new Error('You are offline. Request queued and will be sent when connection is restored.')
+      // Better offline detection
+      const isNetworkError = !navigator.onLine || 
+                            error.code === 'ERR_NETWORK' || 
+                            error.code === 'ERR_INTERNET_DISCONNECTED' ||
+                            error.message?.includes('Network Error') ||
+                            (error.response === undefined && error.request !== undefined)
+      
+      if (isNetworkError) {
+        try {
+          await queueRequest({
+            method: 'POST',
+            url: '/predict-risk',
+            data: { image_base64: imageBase64, breed, region },
+            type: 'risk_assessment'
+          })
+          // Return a queued response instead of throwing error
+          return {
+            risk_level: 'Medium',
+            confidence: 0.5,
+            explanation: 'Request queued. Will be processed when connection is restored.',
+            visual_cues: [],
+            factors: ['Request queued for processing'],
+            queued: true
+          }
+        } catch (queueError) {
+          console.error('Failed to queue request:', queueError)
+          throw new Error('Unable to process request. Please check your connection and try again.')
+        }
+      }
+      
+      if (error.response?.status === 400) {
+        throw new Error(error.response.data?.detail || 'Invalid request. Please check your image and try again.')
+      }
+      if (error.response?.status === 500) {
+        throw new Error('Server error during risk assessment. Please try again later.')
       }
       throw error
     }
@@ -115,15 +167,38 @@ export const advisorAPI = {
       })
       return response.data
     } catch (error) {
-      if (!navigator.onLine || error.code === 'ERR_NETWORK') {
-        await queueRequest({
-          method: 'POST',
-          url: '/ask-advisor',
-          data: { question, language, context, region },
-          type: 'advisor_query'
-        })
-        throw new Error('You are offline. Request queued and will be sent when connection is restored.')
+      // Better offline detection
+      const isNetworkError = !navigator.onLine || 
+                            error.code === 'ERR_NETWORK' || 
+                            error.code === 'ERR_INTERNET_DISCONNECTED' ||
+                            error.message?.includes('Network Error') ||
+                            (error.response === undefined && error.request !== undefined)
+      
+      if (isNetworkError) {
+        try {
+          await queueRequest({
+            method: 'POST',
+            url: '/ask-advisor',
+            data: { question, language, context, region },
+            type: 'advisor_query'
+          })
+          // Return a user-friendly response instead of throwing
+          return {
+            answer: 'Your question has been queued and will be answered when connection is restored.',
+            sources: [],
+            confidence: 0.5,
+            queued: true
+          }
+        } catch (queueError) {
+          console.error('Failed to queue request:', queueError)
+          throw new Error('Unable to process request. Please check your connection and try again.')
+        }
       }
+      
+      if (error.response?.status === 500) {
+        throw new Error('Server error. Please try again later.')
+      }
+      // Re-throw if it's not a network error
       throw error
     }
   }
@@ -166,8 +241,28 @@ export const trendsAPI = {
       const response = await apiClient.get('/health-trends', { params })
       return response.data
     } catch (error) {
-      if (!navigator.onLine || error.code === 'ERR_NETWORK') {
-        throw new Error('You are offline. Please check your connection and try again.')
+      // Better offline detection
+      const isNetworkError = !navigator.onLine || 
+                            error.code === 'ERR_NETWORK' || 
+                            error.code === 'ERR_INTERNET_DISCONNECTED' ||
+                            error.message?.includes('Network Error') ||
+                            (error.response === undefined && error.request !== undefined)
+      
+      if (isNetworkError) {
+        // For trends, return empty data instead of throwing
+        return {
+          summary: {
+            total_assessments: 0,
+            low_risk_percentage: 0,
+            medium_risk_percentage: 0,
+            high_risk_percentage: 0
+          },
+          time_series: [],
+          breed_trends: [],
+          visual_cue_trends: [],
+          regional_comparison: [],
+          queued: true
+        }
       }
       if (error.response?.status === 500) {
         throw new Error('Server error. Please try again later.')
