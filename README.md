@@ -194,6 +194,25 @@ See [HACKATHON_SETUP.md](./HACKATHON_SETUP.md) for:
 - **CORS errors**: Check backend is running
 - **Build errors**: Delete `node_modules` and reinstall
 
+## 🔒 Production Deployment
+
+### Environment Setup
+1. Copy `backend/.env.example` to `backend/.env`
+2. Update configuration values
+3. Set `DEBUG=False` for production
+4. Configure production domains in `ALLOWED_ORIGINS`
+
+### Security Checklist
+- ✅ Input validation on all endpoints
+- ✅ File size and type validation
+- ✅ CORS properly configured
+- ✅ Error messages sanitized
+- ✅ Structured logging
+- ✅ Request ID tracking
+- ✅ Health check endpoint
+
+See [PRODUCTION_CHECKLIST.md](./PRODUCTION_CHECKLIST.md) for full deployment guide.
+
 ## 📝 License
 
 MIT License - Open source for public good
@@ -211,3 +230,4 @@ This is a production-grade system ready for:
 **Built with**: FastAPI, React, TensorFlow
 **Status**: ✅ Production-ready
 **Deployment**: Ready for pilot → district → state → national rollout
+**Security**: ✅ Hardened with input validation, logging, and error handling

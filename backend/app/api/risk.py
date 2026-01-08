@@ -7,11 +7,15 @@ from fastapi.responses import JSONResponse
 from typing import Optional
 import base64
 import io
+import logging
 
 from app.schemas.risk import RiskPredictionResponse
 from app.services.risk_service import RiskService
 from app.services.trust_service import TrustService
 from app.core.config import settings
+
+router = APIRouter()
+logger = logging.getLogger("livestock_ai")
 
 router = APIRouter()
 

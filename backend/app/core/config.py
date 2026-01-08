@@ -42,6 +42,14 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_IMAGE_TYPES: List[str] = ["image/jpeg", "image/png", "image/webp"]
     
+    # Security
+    SECRET_KEY: str = "change-this-in-production"  # Should be set via env
+    ALLOWED_HOSTS: List[str] = ["localhost", "127.0.0.1"]
+    
+    # Rate Limiting (requests per minute)
+    RATE_LIMIT_ENABLED: bool = True
+    RATE_LIMIT_PER_MINUTE: int = 60
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

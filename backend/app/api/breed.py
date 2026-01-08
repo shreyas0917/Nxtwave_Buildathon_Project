@@ -2,19 +2,20 @@
 API endpoints for breed identification
 """
 
-from fastapi import APIRouter, File, UploadFile, HTTPException, Depends, Body, Request
+from fastapi import APIRouter, File, UploadFile, HTTPException, Request
 from fastapi.responses import JSONResponse
 from typing import Optional
 import base64
 import io
-import json
+import logging
 
-from app.schemas.breed import BreedPredictionRequest, BreedPredictionResponse
+from app.schemas.breed import BreedPredictionResponse
 from app.services.breed_service import BreedService
 from app.services.trust_service import TrustService
 from app.core.config import settings
 
 router = APIRouter()
+logger = logging.getLogger("livestock_ai")
 
 
 @router.post("/predict-breed", response_model=BreedPredictionResponse)
