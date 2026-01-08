@@ -1,0 +1,424 @@
+{
+  "batch_processing": {
+    "images": [
+      "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACvElEQVR4nO3TMQEAIAzAsIF/zyBjRxMFfXreQNfdDoBNBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gzAlH1ZHwL/ugAMcQAAAABJRU5ErkJggg==",
+      "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACvUlEQVR4nO3TMQEAIAzAsIFypCNjRxMFfXrmDWTd7QDYZADSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ATNkHw7wCgH/2zf4AAAAASUVORK5CYII=",
+      "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACvUlEQVR4nO3TMQEAIAzAsIF/zyBjRxMFfXpm3kDV3Q6ATQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMwJR9VyEC/zrgCsUAAAAASUVORK5CYII=",
+      "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACvUlEQVR4nO3TMQEAIAzAMMC/5yFjRxMFfXpnDmS97QDYZADSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0ApBmANAOQZgDSDECaAUgzAGkGIM0AnLIPgwMD/qb8Mn0AAAAASUVORK5CYII=",
+      "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACvklEQVR4nO3TMQEAIAzAsIF/G+gEGRxNFPTpumcga/8OgJ8MQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYA0A5BmANIMQJoBSDMAaQYgzQCkGYApexnlA6QOW4TXAAAAAElFTkSuQmCC"
+    ],
+    "animal_ids": [
+      "TEST-ANI-001",
+      "TEST-ANI-002",
+      "TEST-ANI-003",
+      "TEST-ANI-004",
+      "TEST-ANI-005"
+    ],
+    "region": "Gujarat"
+  },
+  "recommendations": [
+    {
+      "name": "High Risk Case",
+      "data": {
+        "breed": "Gir",
+        "risk_level": "High",
+        "visual_cues": [
+          "Body Condition Score",
+          "Eye/Nose Discharge"
+        ],
+        "region": "Gujarat",
+        "season": "summer"
+      }
+    },
+    {
+      "name": "Medium Risk Case",
+      "data": {
+        "breed": "Murrah",
+        "risk_level": "Medium",
+        "visual_cues": [
+          "Coat Quality"
+        ],
+        "region": "Punjab",
+        "season": "monsoon"
+      }
+    },
+    {
+      "name": "Low Risk Case",
+      "data": {
+        "breed": "Sahiwal",
+        "risk_level": "Low",
+        "visual_cues": [],
+        "region": "Haryana",
+        "season": "winter"
+      }
+    }
+  ],
+  "reports": {
+    "animal_id": "TEST-ANI-001",
+    "breed": "Gir",
+    "assessments": [
+      {
+        "date": "2025-12-08T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.75,
+        "breed": "Gir",
+        "visual_cues": [
+          "Coat Quality",
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-11T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.84,
+        "breed": "Jaffarabadi",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-14T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.76,
+        "breed": "Jaffarabadi",
+        "visual_cues": [
+          "Coat Quality",
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-17T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.94,
+        "breed": "Sahiwal",
+        "visual_cues": [
+          "Body Condition Score",
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-12-20T15:38:44.769757",
+        "risk_level": "Low",
+        "confidence": 0.74,
+        "breed": "Murrah",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-23T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.75,
+        "breed": "Jaffarabadi",
+        "visual_cues": [
+          "Eye/Nose Discharge",
+          "Coat Quality"
+        ]
+      },
+      {
+        "date": "2025-12-26T15:38:44.769757",
+        "risk_level": "Low",
+        "confidence": 0.91,
+        "breed": "Murrah",
+        "visual_cues": [
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-12-29T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.69,
+        "breed": "Gir",
+        "visual_cues": []
+      },
+      {
+        "date": "2026-01-01T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.66,
+        "breed": "Murrah",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2026-01-04T15:38:44.769757",
+        "risk_level": "High",
+        "confidence": 0.83,
+        "breed": "Sahiwal",
+        "visual_cues": []
+      }
+    ],
+    "start_date": "2025-12-08T15:38:44.769757",
+    "end_date": "2026-01-07T15:38:44.769868"
+  },
+  "comparison": [
+    {
+      "name": "Breed Comparison",
+      "data": {
+        "comparison_type": "breed",
+        "items": [
+          "Gir",
+          "Murrah",
+          "Sahiwal",
+          "Jaffarabadi"
+        ],
+        "period": "last_30_days"
+      }
+    },
+    {
+      "name": "Time Period Comparison",
+      "data": {
+        "comparison_type": "time",
+        "items": [
+          "last_7_days",
+          "last_30_days",
+          "last_90_days"
+        ],
+        "period": "last_30_days"
+      }
+    },
+    {
+      "name": "Region Comparison",
+      "data": {
+        "comparison_type": "region",
+        "items": [
+          "Gujarat",
+          "Punjab",
+          "Haryana"
+        ],
+        "period": "last_30_days"
+      }
+    }
+  ],
+  "qrcode": [
+    {
+      "animal_id": "TEST-ANI-001",
+      "breed": "Gir"
+    },
+    {
+      "animal_id": "TEST-ANI-002",
+      "breed": "Murrah"
+    },
+    {
+      "animal_id": "TEST-ANI-003",
+      "breed": null
+    }
+  ],
+  "analytics": [
+    {
+      "state": "Gujarat",
+      "district": "Ahmedabad",
+      "period": "last_30_days"
+    },
+    {
+      "state": "Punjab",
+      "district": null,
+      "period": "last_7_days"
+    },
+    {
+      "state": null,
+      "district": null,
+      "period": "last_90_days"
+    }
+  ],
+  "historical_tracking": {
+    "animal_id": "TEST-ANI-001",
+    "history": [
+      {
+        "date": "2025-11-08",
+        "risk_level": "Medium",
+        "confidence": 0.79,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-11-11",
+        "risk_level": "Low",
+        "confidence": 0.95,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score",
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-11-14",
+        "risk_level": "Medium",
+        "confidence": 0.82,
+        "breed": "Gir",
+        "visual_cues": [
+          "Coat Quality",
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-11-17",
+        "risk_level": "Low",
+        "confidence": 0.92,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-11-20",
+        "risk_level": "Medium",
+        "confidence": 0.71,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge",
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-11-23",
+        "risk_level": "Medium",
+        "confidence": 0.79,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-11-26",
+        "risk_level": "Medium",
+        "confidence": 0.79,
+        "breed": "Gir",
+        "visual_cues": [
+          "Coat Quality",
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-11-29",
+        "risk_level": "Low",
+        "confidence": 0.94,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge",
+          "Coat Quality"
+        ]
+      },
+      {
+        "date": "2025-12-02",
+        "risk_level": "High",
+        "confidence": 0.94,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-05",
+        "risk_level": "Medium",
+        "confidence": 0.88,
+        "breed": "Gir",
+        "visual_cues": [
+          "Coat Quality",
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-08",
+        "risk_level": "Low",
+        "confidence": 0.7,
+        "breed": "Gir",
+        "visual_cues": []
+      },
+      {
+        "date": "2025-12-11",
+        "risk_level": "High",
+        "confidence": 0.73,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-14",
+        "risk_level": "Low",
+        "confidence": 0.92,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-12-17",
+        "risk_level": "Medium",
+        "confidence": 0.82,
+        "breed": "Gir",
+        "visual_cues": []
+      },
+      {
+        "date": "2025-12-20",
+        "risk_level": "Low",
+        "confidence": 0.87,
+        "breed": "Gir",
+        "visual_cues": []
+      },
+      {
+        "date": "2025-12-23",
+        "risk_level": "Low",
+        "confidence": 0.75,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge",
+          "Body Condition Score"
+        ]
+      },
+      {
+        "date": "2025-12-26",
+        "risk_level": "Medium",
+        "confidence": 0.86,
+        "breed": "Gir",
+        "visual_cues": [
+          "Body Condition Score",
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2025-12-29",
+        "risk_level": "High",
+        "confidence": 0.86,
+        "breed": "Gir",
+        "visual_cues": [
+          "Eye/Nose Discharge"
+        ]
+      },
+      {
+        "date": "2026-01-01",
+        "risk_level": "High",
+        "confidence": 0.87,
+        "breed": "Gir",
+        "visual_cues": []
+      },
+      {
+        "date": "2026-01-04",
+        "risk_level": "High",
+        "confidence": 0.87,
+        "breed": "Gir",
+        "visual_cues": []
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "title": "High Risk Alert",
+      "message": "A high-risk assessment was detected for Animal TEST-ANI-001. Please consult a veterinarian.",
+      "type": "warning"
+    },
+    {
+      "title": "Batch Processing Complete",
+      "message": "Successfully processed 5 animals. 4 successful, 1 error.",
+      "type": "success"
+    },
+    {
+      "title": "New Recommendations Available",
+      "message": "New care recommendations are available for your animals.",
+      "type": "info"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "text": "Gir cattle require 40-50 liters of clean water daily. Provide balanced nutrition with green fodder, dry fodder, and concentrates. Monitor body condition regularly.",
+    "source": "ICAR Livestock Care Guidelines - Gir Breed",
+    "breed": "Gir",
+    "region": "Gujarat",
+    "topics": ["nutrition", "water", "body condition"]
+  },
+  {
+    "text": "Sahiwal cattle are known for heat tolerance. Ensure adequate shade and water during summer months. Provide high-quality green fodder for optimal milk production.",
+    "source": "ICAR Livestock Care Guidelines - Sahiwal Breed",
+    "breed": "Sahiwal",
+    "region": "Punjab",
+    "topics": ["heat tolerance", "nutrition", "milk production"]
+  },
+  {
+    "text": "Monitor body condition score regularly. Thin animals (BCS < 3) may need nutritional support. Consult veterinarian for dietary adjustments.",
+    "source": "Veterinary Care Manual - General Guidelines",
+    "breed": null,
+    "region": null,
+    "topics": ["body condition", "nutrition", "veterinary consultation"]
+  },
+  {
+    "text": "In summer months, provide shade and ensure adequate water supply. Watch for heat stress symptoms: excessive panting, reduced feed intake, lethargy.",
+    "source": "Regional Care Guidelines - Summer Management",
+    "breed": null,
+    "region": "Gujarat",
+    "topics": ["summer", "heat stress", "water"]
+  },
+  {
+    "text": "Dull coat may indicate nutritional deficiencies or health issues. Ensure balanced diet with adequate minerals and vitamins. Consult veterinarian if condition persists.",
+    "source": "Veterinary Care Manual - Coat Quality",
+    "breed": null,
+    "region": null,
+    "topics": ["coat quality", "nutrition", "health"]
+  },
+  {
+    "text": "Murrah buffalo require 50-60 liters of water daily. Provide wallowing facilities if possible. High-quality green fodder essential for milk production.",
+    "source": "ICAR Livestock Care Guidelines - Murrah Breed",
+    "breed": "Murrah",
+    "region": "Haryana",
+    "topics": ["water", "wallowing", "nutrition", "milk production"]
+  },
+  {
+    "text": "Regular health monitoring includes checking for eye/nose discharge, body condition, coat quality, and general behavior. Early detection helps prevent serious issues.",
+    "source": "Veterinary Care Manual - Health Monitoring",
+    "breed": null,
+    "region": null,
+    "topics": ["health monitoring", "early detection", "visual cues"]
+  },
+  {
+    "text": "Ongole cattle are well-adapted to hot climates. Provide adequate shade and water. They thrive on good quality green and dry fodder.",
+    "source": "ICAR Livestock Care Guidelines - Ongole Breed",
+    "breed": "Ongole",
+    "region": "Andhra Pradesh",
+    "topics": ["heat tolerance", "nutrition", "climate adaptation"]
+  }
+]
+

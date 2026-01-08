@@ -1,0 +1,94 @@
+{
+  "Gir": {
+    "Gujarat": 0.95,
+    "Rajasthan": 0.70,
+    "Maharashtra": 0.60,
+    "Madhya Pradesh": 0.50
+  },
+  "Sahiwal": {
+    "Punjab": 0.95,
+    "Haryana": 0.85,
+    "Rajasthan": 0.75,
+    "Uttar Pradesh": 0.65
+  },
+  "Red Sindhi": {
+    "Punjab": 0.90,
+    "Haryana": 0.80,
+    "Rajasthan": 0.70
+  },
+  "Tharparkar": {
+    "Rajasthan": 0.95,
+    "Gujarat": 0.75,
+    "Haryana": 0.60
+  },
+  "Kankrej": {
+    "Gujarat": 0.95,
+    "Rajasthan": 0.80,
+    "Maharashtra": 0.65
+  },
+  "Ongole": {
+    "Andhra Pradesh": 0.95,
+    "Telangana": 0.85,
+    "Tamil Nadu": 0.70
+  },
+  "Hariana": {
+    "Haryana": 0.95,
+    "Punjab": 0.85,
+    "Uttar Pradesh": 0.75
+  },
+  "Krishna Valley": {
+    "Karnataka": 0.95,
+    "Maharashtra": 0.80,
+    "Andhra Pradesh": 0.70
+  },
+  "Deoni": {
+    "Maharashtra": 0.90,
+    "Karnataka": 0.85,
+    "Telangana": 0.70
+  },
+  "Rathi": {
+    "Rajasthan": 0.95,
+    "Haryana": 0.75,
+    "Punjab": 0.70
+  },
+  "Murrah": {
+    "Haryana": 0.95,
+    "Punjab": 0.90,
+    "Uttar Pradesh": 0.80,
+    "Rajasthan": 0.70
+  },
+  "Jaffarabadi": {
+    "Gujarat": 0.95,
+    "Rajasthan": 0.70
+  },
+  "Surti": {
+    "Gujarat": 0.95,
+    "Maharashtra": 0.75
+  },
+  "Mehsana": {
+    "Gujarat": 0.95,
+    "Rajasthan": 0.70
+  },
+  "Bhadawari": {
+    "Uttar Pradesh": 0.90,
+    "Madhya Pradesh": 0.75,
+    "Rajasthan": 0.65
+  },
+  "Nili-Ravi": {
+    "Punjab": 0.95,
+    "Haryana": 0.85
+  },
+  "Pandharpuri": {
+    "Maharashtra": 0.95,
+    "Karnataka": 0.70
+  },
+  "Nagpuri": {
+    "Maharashtra": 0.90,
+    "Madhya Pradesh": 0.75
+  },
+  "Toda": {
+    "Tamil Nadu": 0.95,
+    "Kerala": 0.70
+  }
+}
+
