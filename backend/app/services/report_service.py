@@ -23,7 +23,7 @@ class ReportService:
         # Use absolute path relative to the backend directory
         from pathlib import Path
         backend_dir = Path(__file__).parent.parent.parent
-        self.reports_dir = str(backend_dir / "reports")
+        self.reports_dir = str(backend_dir / "storage" / "reports")
         os.makedirs(self.reports_dir, exist_ok=True)
     
     async def generate_report(self, request: HealthReportRequest) -> HealthReportResponse:

@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = "sqlite:///./livestock_ai.db"
     
+    # Storage Paths (relative to backend directory)
+    STORAGE_DIR: str = "storage"
+    REPORTS_DIR: str = "storage/reports"
+    UPLOADS_DIR: str = "storage/uploads"
+    
     # File Upload
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_IMAGE_TYPES: List[str] = ["image/jpeg", "image/png", "image/webp"]

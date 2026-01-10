@@ -5,14 +5,20 @@ This allows the app to start even without trained models
 """
 
 import os
+import sys
 from pathlib import Path
+
+# Add backend directory to Python path
+backend_dir = Path(__file__).parent.parent.parent / "backend"
+sys.path.insert(0, str(backend_dir))
+
 import tensorflow as tf
 from tensorflow import keras
 
 def create_placeholder_models():
     """Create placeholder models for demo purposes"""
     
-    models_dir = Path("ml_pipeline/models")
+    models_dir = backend_dir / "ml_pipeline" / "models"
     models_dir.mkdir(parents=True, exist_ok=True)
     
     breed_model_path = models_dir / "breed_classifier.h5"
@@ -76,4 +82,3 @@ def create_placeholder_models():
 
 if __name__ == "__main__":
     create_placeholder_models()
-

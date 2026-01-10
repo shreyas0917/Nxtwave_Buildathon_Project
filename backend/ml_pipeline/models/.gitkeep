@@ -1,3 +1,2 @@
-# Placeholder to keep models directory in git
-# Actual model files (.h5) should be added separately or via Git LFS
-
+# ML Models directory
+# Trained models will be stored here
