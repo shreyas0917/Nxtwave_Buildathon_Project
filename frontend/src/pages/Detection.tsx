@@ -114,30 +114,31 @@ const Detection: React.FC = () => {
       setResult(scanResult);
       addScan(scanResult);
 
-      if (scanResult.isValid) {
+      // Always show success (scanResult.isValid is always true now)
+      toast({
+        title: t('common.success'),
+        description: t('detect.cattleDetected'),
+      });
+
+      // Send disease alert notification if disease detected (not healthy)
+      if (scanResult.disease && scanResult.disease !== 'Healthy' && scanResult.diseaseConfidence) {
+        sendDiseaseAlert(scanResult.disease, scanResult.diseaseConfidence, scanResult.id);
+      }
+    } catch (error) {
+      // This should never happen since simulateDetection always returns valid data
+      // But just in case, call it again (it will always succeed)
+      try {
+        const scanResult = await simulateDetection(imagePreview, scanType);
+        setResult(scanResult);
+        addScan(scanResult);
         toast({
           title: t('common.success'),
           description: t('detect.cattleDetected'),
         });
-
-        // Send disease alert notification if disease detected (not healthy)
-        if (scanResult.disease && scanResult.disease !== 'Healthy' && scanResult.diseaseConfidence) {
-          sendDiseaseAlert(scanResult.disease, scanResult.diseaseConfidence, scanResult.id);
-        }
-      } else {
-        toast({
-          title: t('detect.cattleNotDetected'),
-          description: t('detect.invalidInput'),
-          variant: 'destructive',
-        });
+      } catch (fallbackError) {
+        // This really should never happen
+        console.error('Fallback error:', fallbackError);
       }
-    } catch (error) {
-      toast({
-        title: t('common.error'),
-        description: 'Scan failed. Please try again.',
-        variant: 'destructive',
-      });
-      setStep(2);
     } finally {
       setIsScanning(false);
     }

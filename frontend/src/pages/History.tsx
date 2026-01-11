@@ -47,35 +47,49 @@ const History: React.FC = () => {
       {/* Filters */}
       <Card className="mb-6 border-0 shadow-card">
         <CardContent className="p-4">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Filter className="h-5 w-5" />
-              <span className="font-medium">Filters:</span>
+          <div className="flex flex-col gap-4">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search by ID, breed, or disease..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
             </div>
             
-            <Select value={breedFilter} onValueChange={setBreedFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
-                <SelectValue placeholder={t('history.filterByBreed')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('history.allBreeds')}</SelectItem>
-                {breeds.map(breed => (
-                  <SelectItem key={breed} value={breed!}>{breed}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {/* Filters */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Filter className="h-5 w-5" />
+                <span className="font-medium">Filters:</span>
+              </div>
+              
+              <Select value={breedFilter} onValueChange={setBreedFilter}>
+                <SelectTrigger className="w-full sm:w-[180px]">
+                  <SelectValue placeholder={t('history.filterByBreed')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('history.allBreeds')}</SelectItem>
+                  {breeds.map(breed => (
+                    <SelectItem key={breed} value={breed!}>{breed}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-            <Select value={diseaseFilter} onValueChange={setDiseaseFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
-                <SelectValue placeholder={t('history.filterByDisease')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('history.allDiseases')}</SelectItem>
-                {diseases.map(disease => (
-                  <SelectItem key={disease} value={disease!}>{disease}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Select value={diseaseFilter} onValueChange={setDiseaseFilter}>
+                <SelectTrigger className="w-full sm:w-[180px]">
+                  <SelectValue placeholder={t('history.filterByDisease')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('history.allDiseases')}</SelectItem>
+                  {diseases.map(disease => (
+                    <SelectItem key={disease} value={disease!}>{disease}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -1,261 +1,361 @@
-# 🐄 Nationwide Livestock AI Platform (India)
+# 🐄 Livestock AI Platform
 
-**Production-grade, offline-first AI platform for Indian dairy cooperatives**
+A comprehensive AI-powered platform for Indian dairy cooperatives to identify cattle breeds, assess health risks, and provide intelligent care guidance.
 
-## 🎯 System Overview
+## 📋 Table of Contents
 
-An ethical, explainable AI system that:
-- Identifies Indian cattle & buffalo breeds from photos
-- Flags non-diagnostic health risk levels (Low/Medium/High)
-- Provides localized, multilingual care guidance
-- Works offline-first for rural connectivity
-- Uses only free & open-source models
-- **Explicitly does NOT replace veterinarians**
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [API Documentation](#api-documentation)
+- [Frontend](#frontend)
+- [Backend](#backend)
+- [Development](#development)
+- [Contributing](#contributing)
 
-## 🚀 Quick Start (Hackathon)
+## 🎯 Overview
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- npm or yarn
+The Livestock AI Platform is a production-grade application designed to help Indian dairy farmers and cooperatives:
 
-### Backend Setup (Terminal 1)
+- **Identify Cattle Breeds**: Automatically recognize 20+ Indian cattle and buffalo breeds from images
+- **Health Risk Assessment**: Non-diagnostic health risk evaluation with visual cue detection
+- **AI Advisor**: Multilingual conversational AI for livestock care guidance using RAG (Retrieval-Augmented Generation)
+- **Trust Scores**: Transparent confidence metrics for all predictions
+- **Offline-First**: Works without internet connection with automatic request queuing
 
-```bash
-# Create virtual environment
-cd backend
-python -m venv venv
+## ✨ Features
 
-# Activate virtual environment
-# Windows: venv\Scripts\activate
-# Linux/Mac: source venv/bin/activate
+### 🎯 Core Features
 
-# Install dependencies
-pip install -r requirements.txt
+- **Breed Identification**
+  - Support for 20+ Indian breeds (Gir, Sahiwal, Murrah, etc.)
+  - Real-time image processing
+  - Confidence scores and explanations
+  - Regional breed filtering
 
-# Initialize models (creates placeholder models if needed)
-python ../scripts/backend/init_models.py
+- **Health Risk Assessment**
+  - Non-diagnostic risk level prediction (Low/Medium/High)
+  - Visual cue detection (Body Condition, Coat Quality, etc.)
+  - Breed-specific assessment
+  - Detailed explanations and recommendations
 
-# Start server
-python ../scripts/backend/start.py
-```
+- **AI Advisor Chatbot**
+  - Multilingual support
+  - RAG-based knowledge retrieval
+  - Conversational interface
+  - Context-aware responses
 
-Backend runs at: **http://localhost:8000**  
-API Docs: **http://localhost:8000/docs**
+- **Advanced Features**
+  - Trust score calculation
+  - Batch processing
+  - Health trends and analytics
+  - PDF report generation
+  - QR code integration
+  - Offline-first architecture
 
-### Frontend Setup (Terminal 2)
+## 🛠 Tech Stack
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+### Frontend
+- **React 18** with TypeScript
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
+- **Shadcn UI** - Component library
+- **React Router** - Routing
+- **TanStack Query** - Data fetching
+- **Recharts** - Data visualization
 
-Frontend runs at: **http://localhost:5173** (Vite default port)
+### Backend
+- **Python 3.8+**
+- **FastAPI** - Web framework
+- **Uvicorn** - ASGI server
+- **TensorFlow/Keras** - ML models
+- **Pydantic** - Data validation
+- **SQLite** - Database (default)
+- **PIL/Pillow** - Image processing
 
-### One-Command Start (Recommended)
-
-**Windows:**
-```bash
-# Backend
-scripts\start_backend.bat
-
-# Frontend (in new terminal)
-scripts\start_frontend.bat
-```
-
-**Linux/Mac:**
-```bash
-# Backend
-chmod +x scripts/start_backend.sh
-./scripts/start_backend.sh
-
-# Frontend (in new terminal)
-chmod +x scripts/start_frontend.sh
-./scripts/start_frontend.sh
-```
+### AI/ML
+- **TensorFlow** - Model framework
+- **Sentence Transformers** - Embeddings
+- **FAISS** - Vector search (optional)
+- **OpenAI API** - Optional AI features
+- **Heuristic-based predictions** - Fallback system
 
 ## 📁 Project Structure
 
-This project follows industry-standard structure for maintainability and scalability.
-
 ```
-livestock-ai-platform/
-├── backend/                    # FastAPI Backend
-│   ├── app/                    # Main application
-│   │   ├── api/                # API route handlers
-│   │   ├── core/               # Configuration & settings
-│   │   ├── models/             # ML model implementations
-│   │   ├── schemas/            # Pydantic validation schemas
-│   │   └── services/           # Business logic layer
-│   ├── data/                   # Static data & knowledge base
-│   ├── ml_pipeline/            # ML training scripts
-│   ├── storage/                # Runtime storage (reports, uploads)
-│   └── requirements.txt        # Python dependencies
-├── frontend/                   # React PWA Frontend
+NXTWAVE_OPENAI_PROJECT/
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── api/            # API endpoints
+│   │   ├── services/       # Business logic
+│   │   ├── models/         # ML models
+│   │   ├── schemas/        # Pydantic schemas
+│   │   ├── core/           # Configuration
+│   │   └── main.py         # Application entry
+│   ├── data/               # Data files
+│   ├── ml_pipeline/        # ML training (if available)
+│   ├── storage/            # Uploads and reports
+│   ├── requirements.txt    # Python dependencies
+│   └── venv/               # Virtual environment
+│
+├── frontend/               # React frontend
 │   ├── src/
-│   │   ├── components/         # Reusable UI components
-│   │   ├── pages/              # Page components
-│   │   ├── services/           # API client
-│   │   ├── utils/              # Utility functions
-│   │   ├── i18n/               # Internationalization
-│   │   └── sw/                 # Service Worker
-│   └── package.json
-├── scripts/                     # Utility scripts
-│   ├── backend/                # Backend scripts
-│   ├── start_backend.sh        # Quick start backend
-│   └── start_frontend.sh       # Quick start frontend
-├── tests/                       # Test suites
-│   ├── backend/                 # Backend tests
-│   └── frontend/               # Frontend tests
-├── docs/                        # Documentation
-├── .env.example                 # Environment template
-├── LICENSE                      # MIT License
-├── CONTRIBUTING.md              # Contribution guidelines
-├── CHANGELOG.md                 # Version history
-└── README.md                    # This file
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Page components
+│   │   ├── contexts/       # React contexts
+│   │   ├── services/       # API services
+│   │   ├── hooks/          # Custom hooks
+│   │   └── lib/            # Utilities
+│   ├── public/             # Static assets
+│   ├── package.json        # Node dependencies
+│   └── vite.config.ts      # Vite configuration
+│
+└── README.md               # This file
 ```
 
-**For detailed structure, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)**
+## 🚀 Installation
 
-## 🎯 Key Features
+### Prerequisites
 
-### 1. Breed Identification
-- MobileNetV3-based CNN
-- 20+ Indian breeds
-- Grad-CAM explainability
-- Trust scores
+- **Python 3.8+** (for backend)
+- **Node.js 16+** and **npm** (for frontend)
+- **Git** (for cloning the repository)
 
-### 2. Health Risk Assessment
-- Non-diagnostic risk levels
-- Visual cue detection
-- Hybrid heuristic + CNN
-- Explainable predictions
+### Backend Setup
 
-### 3. AI Advisor (RAG)
-- Multilingual support
-- Knowledge base retrieval
-- Context-aware answers
-- Source attribution
+1. **Navigate to backend directory:**
+   ```bash
+   cd backend
+   ```
 
-### 4. Offline-First PWA
-- Service Worker caching
-- IndexedDB queue
-- Automatic sync
-- Installable app
+2. **Create virtual environment:**
+   ```bash
+   python -m venv venv
+   ```
 
-### 5. Trust Score System
-- Model Confidence (30%)
-- Regional Validity (40%)
-- Community Feedback (30%)
+3. **Activate virtual environment:**
+   
+   **Windows (PowerShell):**
+   ```powershell
+   .\venv\Scripts\Activate.ps1
+   ```
+   
+   **Windows (Git Bash/MINGW64):**
+   ```bash
+   source venv/Scripts/activate
+   ```
+   
+   **Linux/Mac:**
+   ```bash
+   source venv/bin/activate
+   ```
 
-## 📊 API Endpoints
+4. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- `POST /api/v1/predict-breed` - Identify breed
-- `POST /api/v1/predict-risk` - Assess health risk
-- `POST /api/v1/ask-advisor` - Get AI guidance
-- `POST /api/v1/submit-feedback` - Submit feedback
-- `GET /api/v1/health-trends` - Get regional trends
+### Frontend Setup
 
-Full API docs: http://localhost:8000/docs
+1. **Navigate to frontend directory:**
+   ```bash
+   cd frontend
+   ```
 
-## 🔐 Ethics & Safety
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- ✅ **Non-diagnostic**: No disease names, only risk levels
-- ✅ **Privacy-preserving**: No personal data, no GPS
-- ✅ **Transparent**: Trust scores and explainability
-- ✅ **Farmer-owned**: All data owned by farmer
-- ✅ **Veterinarian-first**: Always recommends vet consultation
+## 🏃 Getting Started
 
-## 🛠️ Development
+### Running the Backend
+
+1. **Activate virtual environment** (if not already activated):
+   ```bash
+   cd backend
+   source venv/Scripts/activate  # Windows Git Bash
+   # or
+   .\venv\Scripts\Activate.ps1   # Windows PowerShell
+   ```
+
+2. **Start the backend server:**
+   ```bash
+   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+   The backend will be available at:
+   - **API**: http://localhost:8000
+   - **API Docs**: http://localhost:8000/docs
+   - **Health Check**: http://localhost:8000/health
+
+### Running the Frontend
+
+1. **Open a new terminal** (keep backend running)
+
+2. **Navigate to frontend directory:**
+   ```bash
+   cd frontend
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+   The frontend will be available at:
+   - **Local**: http://localhost:3000
+   - **Network**: http://192.168.x.x:3000 (accessible from other devices)
+
+## 📚 API Documentation
+
+Once the backend is running, visit **http://localhost:8000/docs** for interactive API documentation (Swagger UI).
+
+### Main API Endpoints
+
+- `POST /api/v1/predict-breed` - Breed identification
+- `POST /api/v1/predict-risk` - Health risk assessment
+- `POST /api/v1/advisor/chat` - AI advisor chatbot
+- `GET /api/v1/trends` - Health trends data
+- `GET /api/v1/reports/{report_id}` - Download reports
+- `GET /health` - Health check
+
+### Example API Request
+
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Breed prediction (requires image file)
+curl -X POST http://localhost:8000/api/v1/predict-breed \
+  -F "file=@cattle_image.jpg" \
+  -F "region=Gujarat"
+```
+
+## 🎨 Frontend
+
+The frontend is built with React and TypeScript, providing a modern and responsive user interface.
+
+### Key Pages
+
+- **Landing Page** - Project introduction
+- **Dashboard** - Overview and quick actions
+- **Detection** - Breed identification and health assessment
+- **History** - Past scan results
+- **Reports** - Generated reports and analytics
+- **Profile** - User settings
+
+### Features
+
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Dark Mode** - Theme switching support
+- **Offline Support** - Service worker for offline functionality
+- **Real-time Updates** - Live data synchronization
+- **Multilingual** - Language switching capability
+
+## ⚙️ Backend
+
+The backend is built with FastAPI, providing a high-performance API with automatic documentation.
+
+### Key Components
+
+- **API Routes** - RESTful endpoints
+- **Services** - Business logic layer
+- **Models** - ML model wrappers
+- **Schemas** - Request/response validation
+- **Configuration** - Environment settings
+
+### Features
+
+- **Auto Documentation** - Swagger/OpenAPI docs
+- **CORS Support** - Cross-origin requests
+- **Error Handling** - Global exception handlers
+- **Validation** - Pydantic schemas
+- **File Upload** - Image processing support
+
+## 🔧 Development
 
 ### Backend Development
-```bash
-# Using the start script (recommended)
-python scripts/backend/start.py
 
-# Or using uvicorn directly
-cd backend
-uvicorn app.main:app --reload --port 8000
+```bash
+# Run with auto-reload
+python -m uvicorn app.main:app --reload
+
+# Run without reload
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --no-reload
 ```
 
 ### Frontend Development
+
 ```bash
-cd frontend
-npm run dev  # Starts Vite dev server with hot reload
+# Development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-### Training Models
-```bash
-# Breed Classifier
-cd backend/ml_pipeline
-python train_breed_classifier.py \
-  --data_dir /path/to/breed/dataset \
-  --output_dir models \
-  --epochs 100 \
-  --batch_size 16
+### Environment Variables
 
-# Risk Assessor
-python train_risk_assessor.py \
-  --data_dir /path/to/risk/dataset \
-  --output_dir models \
-  --epochs 100 \
-  --batch_size 16
+Create a `.env` file in the `backend` directory (optional):
+
+```env
+# API Settings
+DEBUG=False
+
+# CORS
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
+
+# AI API Keys (Optional)
+OPENAI_API_KEY=your_key_here
+HUGGINGFACE_API_KEY=your_key_here
+USE_AI_API=False
+
+# Database
+DATABASE_URL=sqlite:///./livestock_ai.db
 ```
 
-See [docs/QUICK_START.md](./docs/QUICK_START.md) for detailed training instructions.
+Create a `.env` file in the `frontend` directory (optional):
 
-## 📚 Documentation
+```env
+VITE_API_URL=http://localhost:8000/api/v1
+```
 
-- **[Project Structure](./PROJECT_STRUCTURE.md)** - Detailed directory structure
-- **[Architecture](./docs/ARCHITECTURE.md)** - System architecture overview
-- **[API Documentation](./docs/API.md)** - Complete API reference
-- **[Deployment Guide](./docs/DEPLOYMENT.md)** - Production deployment instructions
-- **[Trust Score System](./docs/TRUST_SCORE.md)** - Trust score calculation
-- **[Ethics & Safety](./docs/ETHICS.md)** - Ethical AI guidelines
-- **[Quick Start](./docs/QUICK_START.md)** - Quick setup guide
-- **[Contributing](./CONTRIBUTING.md)** - Contribution guidelines
-- **[Changelog](./CHANGELOG.md)** - Version history
+## 📝 Notes
 
-## 🎤 Hackathon Demo
-
-For hackathon presentation:
-1. Use the one-command start scripts for quick setup
-2. Demo breed identification with real images
-3. Show offline-first capabilities
-4. Highlight trust scores and explainability
-5. Emphasize ethical AI principles
-
-See [docs/QUICK_START.md](./docs/QUICK_START.md) for detailed demo flow.
-
-## 🐛 Troubleshooting
-
-### Backend Issues
-- **Port 8000 in use**: Change port in `scripts/backend/start.py` or use `--port` flag
-- **Models not found**: Run `python scripts/backend/init_models.py`
-- **Import errors**: Ensure virtual environment is activated and run `pip install -r backend/requirements.txt`
-- **Module not found**: Check that you're running scripts from project root
-
-### Frontend Issues
-- **Port 5173 in use**: Change in `frontend/vite.config.js` or use `--port` flag
-- **CORS errors**: Ensure backend is running and check `backend/app/core/config.py` for allowed origins
-- **Build errors**: Delete `frontend/node_modules` and `frontend/package-lock.json`, then run `npm install`
-- **Module not found**: Clear Vite cache: `rm -rf frontend/.vite` (Linux/Mac) or delete `.vite` folder (Windows)
-
-## 📝 License
-
-MIT License - Open source for public good
+- The platform uses **heuristic-based predictions** by default (no real ML models required for basic functionality)
+- ML models can be integrated by placing trained model files in the appropriate directories
+- The system gracefully falls back to heuristic predictions if models are unavailable
+- All health assessments are **non-diagnostic** - always consult a veterinarian for medical decisions
 
 ## 🤝 Contributing
 
-This is a production-grade system ready for:
-- National rollout
-- Government deployment
-- Dairy cooperative integration
-- Research collaboration
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is part of a hackathon/buildathon submission. Please refer to the project's license file for more information.
+
+## 🙏 Acknowledgments
+
+- Built for Indian dairy cooperatives
+- Designed with offline-first principles
+- Focus on explainable AI and trust scores
+
+## 📞 Support
+
+For issues, questions, or contributions, please open an issue on the repository.
 
 ---
 
-**Built with**: FastAPI, React, TensorFlow
-**Status**: ✅ Production-ready
-**Deployment**: Ready for pilot → district → state → national rollout
+**Note**: This is a non-diagnostic tool. Always consult a qualified veterinarian for medical decisions regarding livestock health.
