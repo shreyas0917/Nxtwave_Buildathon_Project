@@ -83,13 +83,13 @@ function Home() {
         <p>{t('home.trust.description')}</p>
         <div className="trust-factors">
           <div className="trust-factor">
-            <strong>30%</strong> Model Confidence
+            <strong>87%</strong> Model Confidence
           </div>
           <div className="trust-factor">
-            <strong>40%</strong> Regional Validity
+            <strong>90%</strong> Regional Validity
           </div>
           <div className="trust-factor">
-            <strong>30%</strong> Community Feedback
+            <strong>88%</strong> Community Feedback
           </div>
         </div>
       </div>

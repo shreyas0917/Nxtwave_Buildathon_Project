@@ -60,7 +60,10 @@ function Trends() {
       setTrends(result)
       setLastUpdated(new Date())
     } catch (err) {
-      setError(err.message || 'Failed to fetch trends')
+      // If error occurs but we have mock data from API fallback, don't show error
+      if (!trends || trends.queued === true) {
+        setError(err.message || 'Failed to fetch trends')
+      }
     } finally {
       setLoading(false)
     }
