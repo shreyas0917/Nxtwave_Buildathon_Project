@@ -1,0 +1,207 @@
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Trash2, Scan, Stethoscope, Calendar, Hash, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import Layout from '@/components/Layout';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useScan } from '@/contexts/ScanContext';
+import { useToast } from '@/hooks/use-toast';
+import { format } from 'date-fns';
+
+const ScanDetails: React.FC = () => {
+  const { t } = useLanguage();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { getScanById, deleteScan } = useScan();
+  const { toast } = useToast();
+
+  const scan = getScanById(id || '');
+
+  if (!scan) {
+    return (
+      <Layout>
+        <div className="flex flex-col items-center justify-center py-20">
+          <p className="text-lg text-muted-foreground">Scan not found</p>
+          <Button variant="outline" className="mt-4" onClick={() => navigate('/history')}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {t('details.backToHistory')}
+          </Button>
+        </div>
+      </Layout>
+    );
+  }
+
+  const handleDelete = () => {
+    deleteScan(scan.id);
+    toast({
+      title: t('common.success'),
+      description: 'Scan deleted successfully',
+    });
+    navigate('/history');
+  };
+
+  return (
+    <Layout>
+      <div className="mx-auto max-w-3xl">
+        {/* Header */}
+        <div className="mb-6 flex items-center justify-between">
+          <Button variant="ghost" onClick={() => navigate('/history')}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {t('details.backToHistory')}
+          </Button>
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm">
+                <Trash2 className="mr-2 h-4 w-4" />
+                {t('details.delete')}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t('details.delete')}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t('details.confirmDelete')}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>
+                  {t('common.delete')}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+
+        <h1 className="mb-6 font-display text-3xl font-bold text-foreground">
+          {t('details.title')}
+        </h1>
+
+        {/* Image */}
+        <Card className="mb-6 border-0 shadow-card overflow-hidden">
+          <div className="aspect-video bg-muted">
+            <img
+              src={scan.imageUrl}
+              alt="Scan"
+              className="h-full w-full object-contain"
+            />
+          </div>
+        </Card>
+
+        {/* Metadata */}
+        <div className="mb-6 grid gap-4 sm:grid-cols-2">
+          <Card className="border-0 shadow-card">
+            <CardContent className="flex items-center gap-3 p-4">
+              <Hash className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-sm text-muted-foreground">{t('details.scanId')}</p>
+                <p className="font-mono text-sm font-medium text-foreground">{scan.id}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-card">
+            <CardContent className="flex items-center gap-3 p-4">
+              <Calendar className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-sm text-muted-foreground">{t('details.dateTime')}</p>
+                <p className="font-medium text-foreground">
+                  {format(scan.scanDate, 'PPpp')}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Status */}
+        <Card className={`mb-6 border-0 shadow-card ${scan.isValid ? 'bg-success/5' : 'bg-destructive/5'}`}>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3">
+              <Badge 
+                variant={scan.isValid ? "default" : "destructive"}
+                className={`text-base px-4 py-1 ${scan.isValid ? "bg-success hover:bg-success" : ""}`}
+              >
+                {scan.isValid ? t('detect.cattleDetected') + ' ✓' : t('detect.cattleNotDetected') + ' ✗'}
+              </Badge>
+            </div>
+            {!scan.isValid && (
+              <p className="mt-3 text-destructive">
+                {t('detect.invalidInput')}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Results */}
+        {scan.isValid && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {scan.breed && (
+              <Card className="border-0 shadow-card">
+                <CardContent className="p-6">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light">
+                      <Scan className="h-5 w-5 text-primary" />
+                    </div>
+                    <span className="text-muted-foreground">{t('detect.breed')}</span>
+                  </div>
+                  <p className="mb-4 text-3xl font-bold text-foreground">{scan.breed}</p>
+                  <div>
+                    <div className="mb-2 flex justify-between text-sm">
+                      <span className="text-muted-foreground">{t('detect.confidence')}</span>
+                      <span className="font-semibold text-foreground">
+                        {scan.breedConfidence?.toFixed(1)}%
+                      </span>
+                    </div>
+                    <Progress value={scan.breedConfidence} className="h-3" />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {scan.disease && (
+              <Card className="border-0 shadow-card">
+                <CardContent className="p-6">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-light">
+                      <Stethoscope className="h-5 w-5 text-secondary" />
+                    </div>
+                    <span className="text-muted-foreground">{t('detect.disease')}</span>
+                  </div>
+                  <p className={`mb-4 text-3xl font-bold ${scan.disease === 'Healthy' ? 'text-success' : 'text-warning'}`}>
+                    {scan.disease === 'Healthy' ? t('detect.healthy') : scan.disease}
+                  </p>
+                  <div>
+                    <div className="mb-2 flex justify-between text-sm">
+                      <span className="text-muted-foreground">{t('detect.confidence')}</span>
+                      <span className="font-semibold text-foreground">
+                        {scan.diseaseConfidence?.toFixed(1)}%
+                      </span>
+                    </div>
+                    <Progress value={scan.diseaseConfidence} className="h-3" />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default ScanDetails;

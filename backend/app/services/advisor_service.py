@@ -2,7 +2,7 @@
 AI Advisor service (RAG-based)
 """
 
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 import numpy as np
 import json
 import os

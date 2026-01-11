@@ -3,6 +3,11 @@ Nationwide Livestock AI Platform - FastAPI Backend
 Production-grade API for breed identification and health risk assessment
 """
 
+import os
+# Suppress TensorFlow warnings
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
