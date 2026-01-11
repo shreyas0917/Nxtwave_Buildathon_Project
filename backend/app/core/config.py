@@ -35,6 +35,11 @@ class Settings(BaseSettings):
     KNOWLEDGE_BASE_PATH: str = "data/knowledge_base/"
     RAG_TOP_K: int = 3
     
+    # AI API Keys (Optional - for real AI features)
+    OPENAI_API_KEY: str = ""  # Optional: for OpenAI Vision/LLM
+    HUGGINGFACE_API_KEY: str = ""  # Optional: for Hugging Face Inference
+    USE_AI_API: bool = False  # Set to True if you have API keys
+    
     # Database
     DATABASE_URL: str = "sqlite:///./livestock_ai.db"
     

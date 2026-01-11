@@ -1,0 +1,21 @@
+# Testing dependencies for backend
+
+# Main requirements
+-r requirements.txt
+
+# Testing frameworks
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+pytest-cov>=6.0.0
+pytest-mock>=3.14.0
+
+# HTTP testing
+httpx>=0.28.0
+
+# Code quality
+black>=24.0.0
+flake8>=7.0.0
+mypy>=1.13.0
+
+# Coverage reporting
+coverage>=7.6.0

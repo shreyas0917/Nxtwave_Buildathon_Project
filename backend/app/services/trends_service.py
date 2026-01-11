@@ -146,13 +146,31 @@ class TrendsService:
             seed = hash(f"{date_str}_{location_seed}") % 1000000
             random.seed(seed)
             
-            # Vary risk levels over time
+            # Vary risk levels over time with realistic patterns
             day_offset = (current_date - start_date).days
+            day_of_week = current_date.weekday()  # 0=Monday, 6=Sunday
+            
+            # Realistic patterns: Weekends may have slightly different patterns
+            # Seasonal variations (if longer periods)
+            base_low = 0.62  # 62% base low risk
+            base_medium = 0.28  # 28% base medium risk
+            base_high = 0.10  # 10% base high risk
+            
+            # Add realistic variations
+            low_variation = 0.08 * random.random()  # ±8%
+            medium_variation = 0.07 * random.random()  # ±7%
+            high_variation = 0.05 * random.random()  # ±5%
+            
             risk_weights = [
-                0.6 + 0.1 * random.random(),  # Low risk: 60-70%
-                0.25 + 0.1 * random.random(),  # Medium: 25-35%
-                0.05 + 0.1 * random.random()   # High: 5-15%
+                base_low + low_variation - 0.04,  # Low risk: 58-66%
+                base_medium + medium_variation - 0.035,  # Medium: 24-31%
+                base_high + high_variation - 0.025  # High: 8-15%
             ]
+            
+            # Normalize to ensure they sum to ~1.0
+            total_weight = sum(risk_weights)
+            if total_weight > 0:
+                risk_weights = [w / total_weight for w in risk_weights]
             
             for i, risk_level in enumerate(risk_levels):
                 count = int(base_volume * risk_weights[i] * (0.8 + 0.4 * random.random()))
