@@ -34,3 +34,30 @@ class AdvisorResponse(BaseModel):
             }
         }
 
+
+class ChatMessage(BaseModel):
+    """Single chat message"""
+    role: str = Field(..., description="Message role: 'user' or 'assistant'")
+    content: str = Field(..., min_length=1, description="Message content")
+    timestamp: Optional[str] = Field(None, description="Message timestamp")
+
+
+class ChatRequest(BaseModel):
+    """Request schema for chat endpoint"""
+    message: str = Field(..., min_length=1, max_length=1000, description="User's chat message")
+    conversation_history: List[ChatMessage] = Field(default_factory=list, description="Previous conversation messages")
+    language: str = Field(default="en", description="Preferred language (en, hi, mr, ta, te)")
+    context: Optional[dict] = Field(None, description="Context (breed, risk level, etc.)")
+    region: Optional[str] = Field(None, description="State/District for localized advice")
+
+
+class ChatResponse(BaseModel):
+    """Response schema for chat endpoint"""
+    message: str = Field(..., description="AI assistant's reply")
+    conversation_history: List[ChatMessage] = Field(..., description="Updated conversation history")
+    sources: List[str] = Field(default_factory=list, description="Knowledge base sources used")
+    confidence: float = Field(..., ge=0.0, le=1.0, description="Answer confidence")
+    disclaimer: str = Field(
+        default="This is general care guidance only. This does NOT constitute medical diagnosis or treatment. Always consult a qualified veterinarian for medical decisions.",
+        description="Medical disclaimer"
+    )

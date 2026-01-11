@@ -118,7 +118,8 @@ class AdvisorService:
         question: str,
         language: str = "en",
         context: Optional[dict] = None,
-        region: Optional[str] = None
+        region: Optional[str] = None,
+        conversation_history: Optional[List[Dict]] = None
     ) -> Dict:
         """
         Generate answer using RAG (Retrieval-Augmented Generation)
@@ -128,6 +129,7 @@ class AdvisorService:
             language: Preferred language
             context: Additional context (breed, risk level, etc.)
             region: State/District for localized advice
+            conversation_history: Previous conversation messages for context
             
         Returns:
             Dict with answer, sources, confidence
@@ -135,8 +137,8 @@ class AdvisorService:
         # Retrieve relevant knowledge
         retrieved = self._retrieve_knowledge(question, context, region)
         
-        # Build prompt with context
-        prompt = self._build_prompt(question, retrieved, context, language)
+        # Build prompt with context and conversation history
+        prompt = self._build_chat_prompt(question, retrieved, context, language, conversation_history)
         
         # Generate answer using AI APIs (OpenAI/Hugging Face) or template-based fallback
         answer = await self._generate_with_llm(prompt, language)
@@ -162,6 +164,56 @@ class AdvisorService:
             "sources": sources,
             "confidence": float(confidence)
         }
+    
+    def _build_chat_prompt(
+        self,
+        question: str,
+        retrieved: list,
+        context: Optional[dict],
+        language: str,
+        conversation_history: Optional[List[Dict]] = None
+    ) -> str:
+        """
+        Build chat prompt with conversation history
+        """
+        # Start with system context
+        prompt = "You are an AI assistant specialized in livestock care and health advice for Indian dairy farmers. Always emphasize that you are non-diagnostic and recommend veterinary consultation.\n\n"
+        
+        # Add conversation history if available (last 5 messages for context)
+        if conversation_history:
+            prompt += "Previous conversation:\n"
+            # Use last 5 messages to keep context manageable
+            recent_history = conversation_history[-5:] if len(conversation_history) > 5 else conversation_history
+            for msg in recent_history:
+                role = msg.get("role", "user")
+                content = msg.get("content", "")
+                if role == "user":
+                    prompt += f"Farmer: {content}\n"
+                else:
+                    prompt += f"Assistant: {content}\n"
+            prompt += "\n"
+        
+        # Add retrieved knowledge
+        if retrieved:
+            prompt += "Relevant knowledge base information:\n"
+            for i, item in enumerate(retrieved[:3], 1):  # Top 3 most relevant
+                prompt += f"{i}. {item['text']} (Source: {item.get('source', 'Unknown')})\n"
+            prompt += "\n"
+        
+        # Add context if available
+        if context:
+            prompt += "Context:\n"
+            if context.get("breed"):
+                prompt += f"- Breed: {context['breed']}\n"
+            if context.get("risk_level"):
+                prompt += f"- Health Risk Level: {context['risk_level']}\n"
+            prompt += "\n"
+        
+        # Add current question
+        prompt += f"Current question: {question}\n\n"
+        prompt += "Provide a helpful, accurate response based on the knowledge base and conversation context. Keep it conversational and related to the question. If the question relates to previous messages, acknowledge the context."
+        
+        return prompt
     
     def _retrieve_knowledge(
         self,
